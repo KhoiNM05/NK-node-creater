@@ -41,10 +41,12 @@ class GraphEditor(QGraphicsView):
             # Kiểm tra nếu click vào cạnh
             clicked_edge = self.find_clicked_edge(pos)
             if clicked_edge:
-                self.remove_edge(clicked_edge)
+                if event.modifiers() == Qt.KeyboardModifier.ShiftModifier:
+                    self.remove_edge(clicked_edge)
             else:
                  # Nếu không, chọn node để tạo cạnh
                 closest_node = self.find_closest_node(pos)
+                
                 if closest_node:
                     if event.modifiers() == Qt.KeyboardModifier.ShiftModifier:
                         self.remove_node(closest_node)
@@ -89,7 +91,7 @@ class GraphEditor(QGraphicsView):
         else:
             super().mouseReleaseEvent(event)
     def find_clicked_edge(self, pos):
-        click_torelance = 5
+        click_torelance = 2
         for edge in self.edges:
             x1, y1 = self.nodes[edge["from"]]["pos"]
             x2, y2 = self.nodes[edge["to"]]["pos"]
