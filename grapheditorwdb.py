@@ -281,9 +281,19 @@ class GraphEditor(QGraphicsView):
     def keyPressEvent(self,event):
         if event.key() == Qt.Key.Key_Z:
             self.undo()
+        move_step = 75
+        if event.key() == Qt.Key.Key_Left:
+             self.horizontalScrollBar().setValue(self.horizontalScrollBar().value() - move_step)
+        elif event.key() == Qt.Key.Key_Right:
+             self.horizontalScrollBar().setValue(self.horizontalScrollBar().value() + move_step)
+        elif event.key() == Qt.Key.Key_Up:
+             self.verticalScrollBar().setValue(self.verticalScrollBar().value() - move_step)
+        elif event.key() == Qt.Key.Key_Down:
+             self.verticalScrollBar().setValue(self.verticalScrollBar().value() + move_step)
     def closeEvent(self, event):
         self.conn.close()
         event.accept()
+
     def get_node_position_from_db(self, node_name):
         self.cursor.execute("SELECT x, y FROM nodes WHERE name = ?", (node_name,))
         result = self.cursor.fetchone()
