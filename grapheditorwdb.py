@@ -167,7 +167,7 @@ class GraphEditor(QGraphicsView):
                 closest_node = node
         return closest_node
     def find_clicked_edge(self, pos):
-        click_tolerance = 5  # Giảm sai số cho phép khi click cạnh
+        click_tolerance = 2  # Giảm sai số cho phép khi click cạnh
 
         for node1, node2 in self.edges:
             if node1 not in self.nodes or node2 not in self.nodes:
